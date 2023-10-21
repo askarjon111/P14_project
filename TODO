@@ -1,0 +1,151 @@
+models:
+1. Ride:
+    driver(user)
+    pickup_location
+    dropoff_location
+    datetime
+    seats
+    auto_accept
+    price
+    return_ride
+    comment
+
+2. Reservation
+    ride
+    passenger(user)
+    status(accepted, rejected, autoaccepted)
+
+3. User
+    name
+    surname
+    birthdate
+    car_model
+    phone_number
+    profile_picture
+
+4. ConfirmationCode
+    code
+    phone_number
+    user
+
+5. Province
+    name
+
+6. Region
+    name
+    province
+
+apis:
+1. SignUp(post/user):
+    input:
+        name
+        surname
+        phone_number
+        confirm_code
+    retrieves:
+        status
+
+2. Login(post/user):
+    input:
+        phone_number
+        confirm_code
+    retrieves:
+        status
+        token
+
+3. SendConfirmCode(post/ConfirmationCode):
+    input:
+        phone_number
+    retrieves:
+        status
+
+4. RideList(get/ride):
+    params:
+        pickup_location
+        dropoff_location
+        date
+        seats
+    retrieves(pagination 10):
+        pickup_location
+        dropoff_location
+        price
+        datetime
+        seats
+        free_seats
+        car_model
+        driver_photo
+        driver_name
+
+5. RideDetail(get/ride/for user):
+    retrieves:
+        datetime
+        pickup_location
+        dropoff_location
+        price
+        car_model
+        seats
+        free_seats
+        driver_photo
+        driver_name
+
+6. Reservation(post/Reservation):
+    input:
+        ride
+        user
+        passengers_count
+    retrieves:
+        status
+        message
+
+7. AddRide(post/ride):
+    input:
+        driver(user)
+        pickup_location
+        dropoff_location
+        datetime
+        seats
+        auto_accept
+        price
+        (return_ride)
+        comment
+    retrieves:
+        status
+
+8. MyRides(get/ride/for driver):
+    retrieves:
+        datetime
+        pickup_location
+        dropoff_location
+        price
+        reservation_count
+
+9. Reservations(get/Reservation/for user):
+    retrieves:
+        datetime
+        pickup_location
+        dropoff_location
+        price
+        driver_photo
+        driver_name
+        car_model
+        status
+        seats
+        free_seats
+
+10. RideDetail(get/ride/for driver):
+    retrieves:
+        datetime
+        user_name
+        user_phone
+        passengers_count
+        pickup_location
+        dropoff_location
+        price
+
+11. ReservationChangeStatus(post/Reservation/for driver):
+    input:
+        status
+        comment
+        reservation
+    retrieves:
+        status
