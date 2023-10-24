@@ -1,8 +1,6 @@
-import json
-import requests
+
 from django.http import JsonResponse
 
-from project import settings
 
 
 def sms_login():

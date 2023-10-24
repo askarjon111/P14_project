@@ -1,14 +1,16 @@
-"""Django 4.2.3."""
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
-DEBUG = os.environ.get('DEBUG') == "1"
+DEBUG = os.getenv('DEBUG') == "1"
 
 ALLOWED_HOSTS = ['*']
 
@@ -203,7 +205,7 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": False,
 
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": os.environ.get('SECRET_KEY'),
+    "SIGNING_KEY": SECRET_KEY,
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
     "ISSUER": None,
