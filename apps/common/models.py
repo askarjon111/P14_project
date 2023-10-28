@@ -10,7 +10,7 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-    
+
 class File(BaseModel):
     file = models.FileField(upload_to=user_upload_path, blank=True, null=True)
 

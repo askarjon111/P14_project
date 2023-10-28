@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
@@ -27,3 +29,16 @@ class ConfirmationCode(BaseModel):
     phone_number = models.CharField(max_length=13)
     user = models.ForeignKey(User, blank=True, null=True, related_name="confirmation_codes", on_delete=models.CASCADE)
     confirmed = models.BooleanField(default=False)
+
+
+    def confirmed_code(self):
+        if self.confirmed and self.created_at > timezone.now() - datetime.timedelta(minutes=5):
+            return True
+        else:
+            return False
+
+    def on_time(self):
+        if self.created_at > timezone.now() - datetime.timedelta(minutes=2):
+            return True
+        else:
+            return False
